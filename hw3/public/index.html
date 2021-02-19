@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script
+src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+ </script>
+
+<title>cheesecakeorderform</title>
+    <link rel = "stylesheet" href = "stylesheets/style.css">
+</head>
+<body>
+<h1>Cheesecake Order Form</h1>
+<img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Mondays_at_Il_Forno_-_Cheesecake_with_strawberry_sauce.jpg" width="200" height="200">
+<!--Source of image -->
+<form action="/action_page.php">
+<label for="quan">Quantity:</label>
+<select id="quan" name="quan" size="1">
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+
+</select>
+
+</form>
+
+
+
+<form>
+  <p>Topping.</p>
+  <input type="radio" id="Plain" name="Topping" value="Plain">
+  <label for="Plain">Plain</label><br>
+
+  <input type="radio" id="Cherry" name="Topping" value="Cherry">
+  <label for="Cherry">Cherry</label><br>
+
+  <input type="radio" id="Chocolate" name="Topping" value="Chocolate">
+  <label for="Chocolate">Chocolate</label>
+
+</form><!--Radio buttons for toppings -->
+<form action="/action_page.php">
+  <label for="Inst">Notes:</label><br>
+  <textarea id="Inst" name="Inst" rows="4" cols="50">
+  Enter any special instructions here.
+  </textarea>
+  <button onclick="orderPlaced()">Place Order</button>
+</form><!--Instructions-->
+
+<script>
+  $(document).ready(function(){
+    $("button").click(function(){
+      const rbs = document.querySelectorAll('input[name="Topping"]')
+      let selected;
+      for(const rb of rbs){
+        if(rb.checked){
+          selected = rb.value;
+          break;
+        }
+      }
+      $("form").hide();
+      $("textarea").hide();
+      $("p").hide();
+
+      var vegan = $.trim($("#Inst").val());
+      if(vegan == "vegan"){
+        alert("Cheesecakes contain dairy :( ");
+      }
+      else{
+        alert("Thank You!\nYour Order has been Placed: \n" + $("#quan").val() + " " + selected + " Cheesecake(s)");
+    }
+  });
+});
+  </script>
+<!--Script to return Order that has been placed Source: https://www.javascripttutorial.net/javascript-dom/javascript-radio-button/-->
+
+
+
+
+
+<div class="dropdown"> <!--Dropdown for Month-->
+  <h3>Orders for
+  <button class="dropbtn">Jan</button>
+  <div class="dropdown-content">
+    <a name = "month" value = "Feb">Feb</a>
+    <a name = "month" value = "Feb">Mar</a>
+    <a name = "month" value = "Feb">Apr</a>
+    <a name = "month" value = "Feb">Jun</a>
+    <a name = "month" value = "Feb">Jul</a>
+    <a name = "month" value = "Feb">Aug</a>
+    <a name = "month" value = "Feb">Sep</a>
+    <a name = "month" value = "Feb">Oct</a>
+    <a name = "month" value = "Feb">Nov</a>
+    <a name = "month" value = "Feb">Dec</a>
+  </div>
+</h3>
+</div>
+<script>
+  $(document).ready(function(){
+    $("dropbtn").click(function(){
+      const month = document.querySelectorAll('input[name="month"]')
+      let monthSelected;
+      for(const mon of month){
+        if(month.checked){
+          monthSelected = month.value;
+          break;
+        }
+      }
+      $("#dropbtn").val() = monthSelected;
+    });
+  });
+
+
+
+</script>
+<ul style="list-style-type:disc">
+  <li>11 Cherry</li>
+  <li>17 Chocolate</li>
+  <li>31 Plain</li>
+</ul>
+
+
+</body>
+</html>

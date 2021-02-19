@@ -1,8 +1,61 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-}
+h3 {
+    font-family: "Times New Roman", Times, serif;
+    background-color: antiquewhite;
+  }
+  h1{
+      background-color: antiquewhite;
+      text-align: center;
+      font-family: verdana;
+        font-size: 20px;
+  }
+  html{
+      
+      background-image: url(https://xiakd1402.files.wordpress.com/2015/01/stock-footage-happy-chef-making-ok-sign-to-camera-in-commercial-kitchen.jpg);
+      
+  
+  }
+  ul{
+      color: antiquewhite;
+  }
+  form{
+      color: antiquewhite;
+  }
+  .dropbtn {
+    background-color: #20b6e4;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
 
-a {
-  color: #00B7FF;
-}
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #29aec0;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    height: 100px;/* you can change as you need it Source: https://stackoverflow.com/questions/21983819/making-a-drop-down-menu-scrollable */
+    overflow-y: scroll;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {background-color: #ddd;}
+  
+  .dropdown:hover .dropdown-content {display: block;}
+  
+  .dropdown:hover .dropbtn {background-color: #1b84ca;}
+
+ 
