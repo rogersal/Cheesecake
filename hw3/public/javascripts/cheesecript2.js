@@ -11,3 +11,4 @@ $(document).ready(function(){
       $("#dropbtn").val() = monthSelected;
     });
   });
+  //Month selector function

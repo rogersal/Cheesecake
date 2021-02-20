@@ -1,6 +1,6 @@
 
   $(document).ready(function(){
-    $("button").click(function(){
+    $("button").click(function(){// looks at what the user chose
       const rbs = document.querySelectorAll('input[name="Topping"]')
       let selected;
       for(const rb of rbs){
@@ -9,11 +9,11 @@
           break;
         }
       }
-      $("form").hide();
+      $("form").hide();//hides bottom of page items
       $("textarea").hide();
       $("p").hide();
 
-      var vegan = $.trim($("#Inst").val());
+      var vegan = $.trim($("#Inst").val());//check if vegan
       if(vegan == "vegan"){
         alert("Cheesecakes contain dairy :( ");
       }
@@ -22,6 +22,6 @@
     }
   });
 });
-
+// Vegan/ Order Submit function
 
 
