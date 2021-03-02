@@ -11,9 +11,13 @@ var myTable = {error:null,
 };
 
 
-
+//send the json 
 router.get('/', function(req, res, next) {
     res.json(myTable);
+});
+//sends through post
+router.post('/', function(req, res){
+    response.json(myTable);
 });
 
 module.exports = router;
