@@ -24,7 +24,6 @@ $(document).ready(function(){
 
 // Vegan/ Order Submit function
 
-//$(document).ready(function(){
   $("dropbtn").click(function(){
     const month = document.querySelectorAll('input[name="month"]')
     let monthSelected;
