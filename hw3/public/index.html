@@ -46,37 +46,40 @@ src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
 </form><!--Instructions-->
 
 <script src="javascripts/cheesescript.js"></script>
+<script src="javascripts/cheesecript2.js"> 
+</script>  
 
 <!--Script to return Order that has been placed Source: https://www.javascripttutorial.net/javascript-dom/javascript-radio-button/-->
 
-
-
-
-
-<div class="dropdown"> <!--Dropdown for Month-->
-  <h3>Orders for
-  <button class="dropbtn">Jan</button>
-  <div class="dropdown-content">
-    <a name = "month" value = "Feb">Feb</a>
-    <a name = "month" value = "Feb">Mar</a>
-    <a name = "month" value = "Feb">Apr</a>
-    <a name = "month" value = "Feb">Jun</a>
-    <a name = "month" value = "Feb">Jul</a>
-    <a name = "month" value = "Feb">Aug</a>
-    <a name = "month" value = "Feb">Sep</a>
-    <a name = "month" value = "Feb">Oct</a>
-    <a name = "month" value = "Feb">Nov</a>
-    <a name = "month" value = "Feb">Dec</a>
+<div id="monthdrop">
+  <h2 class="dropdown">
+    <button class="dropbtn">April</button> <!-- dropdowns, class made from css, held within 'a' columns -->
+    <div class="dropdown-content">
+      <a id = 'jan'>Jan</a>
+      <a id = 'feb'>Feb</a>
+      <a id = 'mar'>Mar</a>
+      <a id = 'apr'>Apr</a>
+      <a id = 'may'>May</a>
+      <a id = 'jun'>Jun</a>
+      <a id = 'jul'>Jul</a>
+      <a id = 'aug'>Aug</a>
+      <a id = 'sep'>Sep</a>
+      <a id = 'oct'>Oct</a>
+      <a id = 'now'>Nov</a>
+      <a id = 'dec'>Dec</a>
+    </div>
+  </h2>
+  <ul>
+    <li id = "top0">11 cherry</li>
+    <li id = "top1">17 chocolate</li>
+    <li id = "top2">31 plain</li>
+  </ul>
   </div>
-</h3>
-</div>
-<script src="javascripts/cheesecript.js"> 
-</script>  
-<ul style="list-style-type:disc">
-  <li>11 Cherry</li>
-  <li>17 Chocolate</li>
-  <li>31 Plain</li>
-</ul>
+
+
+
+
+
 
 
 </body>
