@@ -1,23 +1,36 @@
+//Author: Backend Team
 var express = require('express');
+const { dbquery } = require('./dbms');
 var router = express.Router();
 
-var dbms = require('./dbms_promise');
+const monthRand = ["JAN","Feb","MAR","APR","MAY","JUN","JUL", "AUG","SEP","OCT", "NOV", "DEC"]; //for randomizing a month
 
 
-var myTable = {error:null,
-    data:[
-    {topping:"cherry",quantity:"2"},
-    {topping:"plain",quantity:"6"},
-    {topping:"chocolate",quantity:"3"}
-]
-};
+router.use(express.json());//allow express
 
-router.use(express.json());
-var insertstatement = "INSERT INTO ORDERS VALUES(682,'JAN',13,2,\"cherry\",\"Yum!\");";//same insert I used in sql commands hw
-//sends through post
-router.post('/', function(req, res, next){
-    dbms.dbQuery(insertstatement, false);
+//POST FUNCT
+router.post('/', async function(req, res, next){
+  console.log("Top: "+ req.body["type"] + " Quant: " + req.body["quant"] + " Notes: "+ req.body["notes"]);//send all order components
+
+  const month = monthRand[Math.floor(Math.random() * 13)];//randmizes a  month
+  const day = Math.floor(Math.random() * 28) + 1;//max can have is 28 so no problems with february/ months not all having same # of days
+
+//get order ID
+  const sql_maxID = "SELECT MAX(ORDERid) FROM ORDERS";
+  var maxID = await dbquery(sql_maxID);
+//Err check
+  if(maxID[0]["MAX(ORDERid)"] == null){
+    maxID[0]["MAX(ORDERid)"] = 0;
+  }
+
+  var newid = 1 + maxID[0]["MAX(ORDERid)"];//Add one to max orderID as to  not have confliciting ID's
+  console.log("newval: " + newid);
+
+//Call query Insert
+  const sql_newOrder = 'INSERT INTO ORDERS (ORDERid, MONTH, DAY, QUANTITY, TOPPING, NOTES) VALUES ('+newid+', \''+month +'\',' +day+', '+ req.body["quant"] +', \'' + req.body["type"] +'\', \'' + req.body["notes"] + '\' );';
+  await dbquery(sql_newOrder);
 });
 
-module.exports = router;
 
+
+module.exports = router;

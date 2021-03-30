@@ -1,86 +1,94 @@
+<!-- Auth: Noah LaFave -->
 <!DOCTYPE html>
 <html>
 <head>
-  <script
-src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
+<title>Please buy our Cheesecake</title>
+<link rel="stylesheet" href="stylesheets/css_style.css">
+ <script
+  src=" https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"/>
  </script>
 
-<title>cheesecakeorderform</title>
-    <link rel = "stylesheet" href = "stylesheets/style.css">
 </head>
 <body>
-<h1>Cheesecake Order Form</h1>
-<img src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Mondays_at_Il_Forno_-_Cheesecake_with_strawberry_sauce.jpg" width="200" height="200">
-<!--Source of image -->
-<form action="/action_page.php">
-<label for="quan">Quantity:</label>
-<select id="quan" name="quan" size="1">
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
 
-</select>
+ <h1>Cheesecake Order Form</h1>
 
-</form>
+ <img src= "https://upload.wikimedia.org/wikipedia/commons/9/9c/Mondays_at_Il_Forno_-_Cheesecake_with_strawberry_sauce.jpg" style="width:200px;height:200px;">
 
 
+  <p id="postText"></p>
 
-<form>
-  <p>Topping.</p>
-  <input type="radio" id="Plain" name="Topping" value="Plain">
-  <label for="Plain">Plain</label><br>
 
-  <input type="radio" id="Cherry" name="Topping" value="Cherry">
-  <label for="Cherry">Cherry</label><br>
+ <form id="form1">
 
-  <input type="radio" id="Chocolate" name="Topping" value="Chocolate">
-  <label for="Chocolate">Chocolate</label>
+  <table >
+   <tr>
+    <td valign="top">
+     <head>Quantity</head><br><br>
+    
+     <select id="amount" name="Quantity" >
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+     </select>
+    </td>
+  
+    <td valign="top">
+     <head>Toppings</head><br>
+   
+     <input type="radio" id="Plain" name="topping" value="Plain">
+     <label for="Plain">Plain</label><br>
+     <input type="radio" id="Cherry" name="topping" value="Cherry">
+     <label for="Cherry">Cherry</label><br>
+     <input type="radio" id="Chocolate" name="topping"  value="Chocolate">
+     <label for="Chocolate">Chocolate</label>
+  
+    </td>
+   </tr>
+  </table>
+  
+  <label id="lText" for="Text"> Notes:</label><br>
+ 
+  <textarea id="Text" rows="4" cols="50" placeholder="Enter any special instuctions here:"></textarea> <br><br>
 
-</form><!--Radio buttons for toppings -->
-<form action="/action_page.php">
-  <label for="Inst">Notes:</label><br>
-  <textarea id="Inst" name="Inst" rows="4" cols="50">
-  Enter any special instructions here.
-  </textarea>
-  <button onclick="orderPlaced()">Place Order</button>
-</form><!--Instructions-->
+ 
+ </form>
+ <input id="order" type="submit" value="Order" onclick="orderFunction()">
+    
+ <br><br>
+<!-- Inline Citation: Dropdown text code sourced from w3schools.com -->
 
-<script src="javascripts/cheesescript.js"></script>
-<script src="javascripts/cheesecript2.js"> 
-</script>  
-
-<!--Script to return Order that has been placed Source: https://www.javascripttutorial.net/javascript-dom/javascript-radio-button/-->
-
-<div id="monthdrop">
-  <h2 class="dropdown">
-    <button class="dropbtn">April</button> <!-- dropdowns, class made from css, held within 'a' columns -->
-    <div class="dropdown-content">
-      <a id = 'jan'>Jan</a>
-      <a id = 'feb'>Feb</a>
-      <a id = 'mar'>Mar</a>
-      <a id = 'apr'>Apr</a>
-      <a id = 'may'>May</a>
-      <a id = 'jun'>Jun</a>
-      <a id = 'jul'>Jul</a>
-      <a id = 'aug'>Aug</a>
-      <a id = 'sep'>Sep</a>
-      <a id = 'oct'>Oct</a>
-      <a id = 'now'>Nov</a>
-      <a id = 'dec'>Dec</a>
+  <label for="butt">Orders for month of </label> 
+    
+   <div class="dropdown">
+      <button class="dropbtn" name="button" id="monthButton">JAN</button>
+      <div class="dropdown-content">
+        <a href="#" id="JAN"class="MONTH">JAN</a>
+        <a href="#"id="FEB"class="MONTH">FEB</a>
+        <a href="#"id="MAR"class="MONTH">MAR</a>
+        <a href="#"id="APR"class="MONTH">APR</a>
+        <a href="#"id="MAY"class="MONTH">MAY</a>
+        <a href="#"id="JUN"class="MONTH">JUN</a>
+        <a href="#"id="JUL"class="MONTH">JUL</a>
+        <a href="#"id="AUG"class="MONTH">AUG</a>
+        <a href="#"id="SEP"class="MONTH">SEP</a>
+        <a href="#"id="OCT"class="MONTH">OCT</a>
+        <a href="#"id="NOV"class="MONTH">NOV</a>
+        <a href="#"id="DEC"class="MONTH">DEC</a>
+      </div>
     </div>
-  </h2>
+
+  <div id="list">
   <ul>
-    <li id = "top0">11 cherry</li>
-    <li id = "top1">17 chocolate</li>
-    <li id = "top2">31 plain</li>
-  </ul>
-  </div>
+   <li id="order1">11 Cherry</li>
+   <li id="order2">17 Chocolate</li>
+   <li id="order3">31 Plain</li>
+  </ul>  
+</div>
 
-
-
-
-
-
-
+<!-- Scrips in javascrip folder, handles order function and month data respectively-->
+<script src="javascripts/order.js"></script>
+<script src="javascripts/month.js"></script>
 </body>
 </html>

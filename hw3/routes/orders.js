@@ -1,89 +1,57 @@
+// Auth: Noah LaFave, Backend Team
+//Code from previous assignments used from Noah LaFave to fix errors with dropdown menu
+//Orders.js and neworder.js were done in meeting with Backend team 1
 var express = require('express');
+const { dbquery } = require('./dbms');
 var router = express.Router();
-var dbms = require('./dbms_promise.js');
 
-var myTable = {error:null,
-    data:[
-    {topping:"cherry",quantity:"2"},
-    {topping:"plain",quantity:"6"},
-    {topping:"chocolate",quantity:"3"}
-]
-};
-
-
-//send the json 
-//router.get('/', function(req, res, next) {
-    //res.json(myTable);
-//});
-//sends through post
-
-
-router.post('/', function (req, res, next) {
-    router.use(express.json());
-    var month = req.body.month;
-
-    var retreive  = "SELECT SUM(QUANTITY) FROM ORDERS WHERE MONTH = " + month + "AND TOPPING ='plain'";
-    var retreive1 = "SELECT SUM(QUANTITY) FROM ORDERS WHERE MONTH = " + month + " AND TOPPING ='cherry'";
-    var retreive2 = "SELECT SUM(QUANTITY) FROM ORDERS WHERE MONTH = " + month + " AND TOPPING ='chocolate'";
-    //var month = req.body.month;
-    //res.send(myTable);
-
-    dbms.dbquery(retreive1).then(function (data1) {
-        //myTable["data"][0]["quantity"]  = data1[0]["SUM(QUANTITY)"];   
-        //res.json(myTable); 
-        //Lines above are for a hardcoded answer
-        var quan = data1[0]["SUM(QUANTITY)"];
-        if (!quan) {
-            quan = 0;
-        }
-        myTable["data"][0]["quantity"] = quan;
-    }).then(function () {
-        return dbmms.dbquery("SELECT SUM(QUANTITY) FROM ORDERS WHERE TOPPING='cherry' AND MONTH ='" + month + "';");
-    }).then(function (data1) {
-        return dbms.dbquery(retreive).then(function (data1) {
-            //myTable["data"][1]["quantity"]  = data1[0]["SUM(QUANTITY)"];
-            //res.json(myTable);
-            var quan = data1[1]["SUM(QUANTITY)"];
-            if (!quan) {
-                quan = 0;
-            }
-            myTable["data"][1]["quantity"] = quan;
-        })
-    }).then(function () {
-        return dbmms.dbquery("SELECT SUM(QUANTITY) FROM ORDERS WHERE TOPPING='plain' AND MONTH ='" + month + "';");
-    }).then(function (data1) {
-        return dbms.dbquery(retreive2).then(function (data1) {
-            var quan = data1[1]["SUM(QUANTITY)"];
-            if (!quan) {
-                quan = 1;
-            }
-            myTable["data"][1]["quantity"] = quan;
-        })
-    }).then(function () {
-        return dbmms.dbquery("SELECT SUM(QUANTITY) FROM ORDERS WHERE TOPPING='chocolate' AND MONTH ='" + month + "';");
-    }).then(function (data1) {
-        return dbms.dbquery(retreive2).then(function (data1) {
-            var quan = data1[2]["SUM(QUANTITY)"];
-            if (!quan) {
-                quan = 1;
-            }
-            myTable["data"][1]["quantity"] = quan;
-        })
-    }).then(function () {
-        res.json(myTable);
-    })
-
+/* GET orders listing. */
+router.get('/', function(req, res, next) { 
+  res.json(order);
 });
 
+router.post('/', async function(req, res, next){
+ 
 
+  var sql_plain = 'SELECT SUM(QUANTITY) FROM ORDERS WHERE MONTH=\''+req.body["updateMonth"] +'\' AND TOPPING=\'Plain\';';//sql for plain order
+  var sql_choco = 'SELECT SUM(QUANTITY) FROM ORDERS WHERE MONTH=\''+req.body["updateMonth"] +'\' AND TOPPING=\'Chocolate\';';//sql for chocolate
+  var sql_cherry = 'SELECT SUM(QUANTITY) FROM ORDERS WHERE MONTH=\''+req.body["updateMonth"] +'\' AND TOPPING=\'Cherry\';';//sql for cherry
+  //Make the queries for plain CHoco and cherry
+  var ret_plain = await dbquery(sql_plain);
+  var ret_choco = await dbquery(sql_choco);
+  var ret_cherry = await dbquery(sql_cherry);
+  /**    used await at suggestion of Alex Mak to create cleaner code instead of then(function) ie:
+   * dbms.dbquery(retreive).then(function (data) {
+        //do something
+    }).then(function () {
+  
+  
+  */
 
+  //check if NULL sum, make 0
+  if(ret_plain[0]["SUM(QUANTITY)"] == null){ret_plain[0]["SUM(QUANTITY)"] =0;}
+  if(ret_choco[0]["SUM(QUANTITY)"] == null){ret_choco[0]["SUM(QUANTITY)"] =0;}
+  if(ret_cherry[0]["SUM(QUANTITY)"] == null){ret_cherry[0]["SUM(QUANTITY)"] =0;}
 
+  //Organize our three queries into a JSON obj
+  var ret_order =  {
+    "o0":{"topping":"Cherry", "quantity": JSON.stringify(ret_cherry[0]["SUM(QUANTITY)"]) },
+    "o1":{"topping":"Plain", "quantity": JSON.stringify(ret_plain[0]["SUM(QUANTITY)"])},
+    "o2":{"topping":"Chocolate", "quantity": JSON.stringify(ret_choco[0]["SUM(QUANTITY)"])}
+  }
 
+  //Stringify order to send
+  JSON_ret_order = JSON.stringify(ret_order);
+  //send strigified json order
+  res.json(JSON_ret_order);
 
+  /*
+  //Som test logs
+  console.log("retp: "+ JSON.stringify(ret_plain[0]["SUM(QUANTITY)"]));
+  console.log("retcho: "+ JSON.stringify(ret_choco[0]["SUM(QUANTITY)"]));
+  console.log("retchy: "+ JSON.stringify(ret_cherry[0]["SUM(QUANTITY)"]));
+  console.log("month sent thru: " + req.body["updateMonth"]);
+  */
+});
 
-    
-    // modified for hw 5
-
-
-    module.exports = router;
-    
+module.exports = router;
